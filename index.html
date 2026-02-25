@@ -27,6 +27,13 @@
 					{{ todoItem.completed ? "Rimuovi completamento" : "Marca come completato" }}
 				</button>
 				<button @click="event => { clearTask(event, todoItem.id, i) } ">ELIMINA TASK</button>
+				<div>
+					<component :is="dynamicTagName">
+						Questo è un {{ dynamicTagName }}
+						<br />
+						<button @click="changeDynamicTag">Cambio type</button>
+					</component>
+				</div>
 			</div>
 		</div>
 

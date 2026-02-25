@@ -5,6 +5,7 @@ createApp({
 		return {
 			newTaskTitle: "",
 			validationClass: "",
+			dynamicTagName: "p",
 			todoList: [
 				{
 					id: 1,
@@ -69,6 +70,9 @@ createApp({
 			}
 
 			return className;
+		},
+		changeDynamicTag() {
+			this.dynamicTagName = this.dynamicTagName == "p" ? "div" : "p";
 		}
 	},
 	mounted() {
