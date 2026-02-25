@@ -7,31 +7,51 @@
 	<title>Hello Vue World</title>
 	<link rel="stylesheet" href="./style.css">
 	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </head>
 
 <body>
 
 	<div id="app">
+
+		<div v-if="modalCfg.isOpen" class="modal d-block" tabindex="-1">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">{{ modalCfg.title }}</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="closeModal"></button>
+					</div>
+					<div class="modal-body">
+						<p>{{ modalCfg.description }}</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="closeModal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<h1>ToDo List</h1>
 		<div class="app-buttons">
 			<input class="newtask-input" :class="getValidation()" v-model="newTaskTitle" placeholder="Nuova task" />
-			<button :disabled="newTaskTitle.trim().length < 3" @click="addTask">Aggiungi task</button>
-			<button @click="clearTasks">Svuota lista</button>
+			<button class="btn btn-primary" :disabled="newTaskTitle.trim().length < 3" @click="addTask">Aggiungi task</button>
+			<button class="btn btn-primary" @click="clearTasks">Svuota lista</button>
 		</div>
 		<div class="todo-list">
 			<div class="todo-item" v-for="todoItem, i of todoList">
 				<h2 :class="{ 'todo-item-done': todoItem.completed }">{{todoItem.id}}. {{ todoItem.title }}</h2>
 				<p v-if="!todoItem.completed">{{ todoItem.description }}</p>
 				<p v-if="!todoItem.completed">{{ todoItem.completed ? "COMPLETATO" : "NON COMPLETATO" }}</p>
-				<button @click="event => { toggleTask(todoItem.id) } ">
+				<button class="btn btn-primary" @click="event => { toggleTask(todoItem.id) } ">
 					{{ todoItem.completed ? "Rimuovi completamento" : "Marca come completato" }}
 				</button>
-				<button @click="event => { clearTask(event, todoItem.id, i) } ">ELIMINA TASK</button>
+				<button class="btn btn-primary" @click="event => { clearTask(event, todoItem.id, i) } ">ELIMINA TASK</button>
 				<div>
 					<component :is="dynamicTagName">
 						Questo è un {{ dynamicTagName }}
 						<br />
-						<button @click="changeDynamicTag">Cambio type</button>
+						<button class="btn btn-primary" @click="changeDynamicTag">Cambio type</button>
 					</component>
 				</div>
 			</div>

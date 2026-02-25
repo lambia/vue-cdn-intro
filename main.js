@@ -3,6 +3,11 @@ const { createApp } = Vue;
 createApp({
 	data() {
 		return {
+			modalCfg: {
+				isOpen: false,
+				title: "",
+				description: ""
+			},
 			newTaskTitle: "",
 			validationClass: "",
 			dynamicTagName: "p",
@@ -51,6 +56,8 @@ createApp({
 
 			const item = this.todoList.find(elemento => elemento.id == id);
 			item.completed = !item.completed;
+
+			this.openModal("Attenzione", "Stai per cambiare lo stato");
 		},
 		clearTask(event, id, index) {
 			console.log(`event.clearTask id: ${id}, indice: ${index}`);
@@ -58,6 +65,8 @@ createApp({
 			// this.todoList.splice(index, 1);
 
 			this.todoList = this.todoList.filter(elemento => elemento.id != id);
+
+			this.openModal("Attenzione", "Il dato verrà eliminato");
 
 		},
 		getValidation() {
@@ -73,7 +82,15 @@ createApp({
 		},
 		changeDynamicTag() {
 			this.dynamicTagName = this.dynamicTagName == "p" ? "div" : "p";
-		}
+		},
+		closeModal() {
+			this.modalCfg.isOpen = false;
+		},
+		openModal(title, desc) {
+			this.modalCfg.isOpen = true;
+			this.modalCfg.title = title;
+			this.modalCfg.description = desc;
+		},
 	},
 	mounted() {
 		this.appInit();
