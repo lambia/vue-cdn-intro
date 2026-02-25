@@ -10,10 +10,15 @@ body {
 	color: white;
 }
 
-.red {
-	color: crimson;
+.newtask-input {
+	border: solid 2px transparent;
+	outline: none;
 }
 
-.blue {
-	color: cadetblue;
+.newtask-input-error {
+	border-color: crimson;
+}
+
+.newtask-input-success {
+	border-color: limegreen;
 }
