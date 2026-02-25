@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Hello Vue World</title>
+	<link rel="stylesheet" href="./style.css">
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+
+	<div id="app">
+
+		<div class="modal-error" v-if="errore">
+			{{ errore }}
+		</div>
+
+		<h2 :class="titleColor">Ciao, {{ name }} {{ surname }}</h2>
+
+		<div v-if="isFormVisible">
+			<input type="text" v-model="name" placeholder="name">
+			<input type="text" v-model="surname" placeholder="surname">
+		</div>
+		<p v-else>Form nascosto!!</p>
+
+		<ul>
+			<li v-for="todoItem in todoList">{{todoItem}}</li>
+		</ul>
+
+		<div>{{ qualcosa }}</div>
+
+		<button @click="onButtonClicked">Cliccami</button>
+		<button @click="onShowHideClicked">Mostra/Nascondi</button>
+	</div>
+	<script src="./main.js"></script>
+
+</body>
+
+</html>
