@@ -22,3 +22,7 @@ body {
 .newtask-input-success {
 	border-color: limegreen;
 }
+
+.todo-item-done {
+	text-decoration: line-through;
+}
