@@ -16,7 +16,8 @@ createApp({
 				// 	description: "Completare lo sviluppo: Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perferendis, voluptate.",
 				// 	completed: true
 				// }
-			]
+			],
+			apiUrl: "https://jsonplaceholder.typicode.com/todos"
 		}
 	},
 	methods: {
@@ -25,7 +26,7 @@ createApp({
 		},
 		addTask() {
 
-			axios.post(`https://jsonplaceholder.typicode.com/todos`, newTask).then(response => {
+			axios.post(this.apiUrl, newTask).then(response => {
 
 				// this.todoList = response.data;
 				console.log("dati");
@@ -51,7 +52,7 @@ createApp({
 				completed: item.completed
 			};
 
-			axios.patch(`https://jsonplaceholder.typicode.com/todos/${id}`, patchToSend).then(response => {
+			axios.patch(`${apiUrl}/${id}`, patchToSend).then(response => {
 
 				// this.todoList = response.data;
 				console.log("dati");
@@ -68,8 +69,7 @@ createApp({
 
 			// this.todoList = this.todoList.filter(elemento => elemento.id != id);
 
-
-			axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`).then(response => {
+			axios.delete(`${apiUrl}/${id}`).then(response => {
 
 				// this.todoList = response.data;
 				console.log("dati");
@@ -95,7 +95,7 @@ createApp({
 	mounted() {
 		this.appInit();
 
-		axios.get("https://jsonplaceholder.typicode.com/todos").then(response => {
+		axios.get(this.apiUrl).then(response => {
 
 			this.todoList = response.data;
 			console.log("dati");
