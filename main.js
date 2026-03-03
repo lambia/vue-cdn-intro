@@ -3,14 +3,12 @@ const { createApp } = Vue;
 createApp({
 	data() {
 		return {
-			modalCfg: {
-				isOpen: false,
+			newTask: {
 				title: "",
-				description: ""
+				description: "",
+				completed: false,
 			},
-			newTaskTitle: "",
 			validationClass: "",
-			dynamicTagName: "p",
 			todoList: [
 				{
 					id: 1,
@@ -38,14 +36,7 @@ createApp({
 			console.log("Applicazione montata correttamente", this.todoList);
 		},
 		addTask() {
-			const newTodoObj = {
-				title: this.newTaskTitle,
-				description: "...",
-				completed: false
-			};
-
-			this.todoList.push(newTodoObj);
-			this.newTaskTitle = "";
+			this.todoList.push({ ...this.newTask });
 		},
 		clearTasks() {
 			this.todoList = [];
@@ -72,24 +63,13 @@ createApp({
 		getValidation() {
 			let className = "";
 
-			if (this.newTaskTitle.trim().length < 3) {
+			if (this.newTask.title.trim().length < 3) {
 				className = "newtask-input-error"
 			} else {
 				className = "newtask-input-success"
 			}
 
 			return className;
-		},
-		changeDynamicTag() {
-			this.dynamicTagName = this.dynamicTagName == "p" ? "div" : "p";
-		},
-		closeModal() {
-			this.modalCfg.isOpen = false;
-		},
-		openModal(title, desc) {
-			this.modalCfg.isOpen = true;
-			this.modalCfg.title = title;
-			this.modalCfg.description = desc;
 		},
 	},
 	mounted() {

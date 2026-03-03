@@ -1,0 +1,13 @@
+body {
+	padding: 1rem;
+}
+
+.newtask-input-success {
+	background: green;
+	color: white;
+}
+
+.newtask-input-error {
+	background: crimson;
+	color: white;
+}
