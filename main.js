@@ -10,24 +10,12 @@ createApp({
 			},
 			validationClass: "",
 			todoList: [
-				{
-					id: 1,
-					title: "Completare lo sviluppo",
-					description: "Completare lo sviluppo: Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perferendis, voluptate.",
-					completed: true
-				},
-				{
-					id: 2,
-					title: "Testare l'applicazione",
-					description: "Testare l'applicazione: Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perferendis, voluptate.",
-					completed: false
-				},
-				{
-					id: 3,
-					title: "Rilasciare in QA",
-					description: "Rilasciare in QA: Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perferendis, voluptate.",
-					completed: false
-				}
+				// {
+				// 	id: 1,
+				// 	title: "Completare lo sviluppo",
+				// 	description: "Completare lo sviluppo: Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perferendis, voluptate.",
+				// 	completed: true
+				// }
 			]
 		}
 	},
@@ -36,7 +24,18 @@ createApp({
 			console.log("Applicazione montata correttamente", this.todoList);
 		},
 		addTask() {
-			this.todoList.push({ ...this.newTask });
+
+			axios.post(`https://jsonplaceholder.typicode.com/todos`, newTask).then(response => {
+
+				// this.todoList = response.data;
+				console.log("dati");
+
+			}).catch(error => {
+
+				alert(`Ops... qualcosa è andato storto\n${error.message}`);
+			});
+
+			this.todoList.push();
 		},
 		clearTasks() {
 			this.todoList = [];
@@ -48,16 +47,37 @@ createApp({
 			const item = this.todoList.find(elemento => elemento.id == id);
 			item.completed = !item.completed;
 
-			this.openModal("Attenzione", "Stai per cambiare lo stato");
+			const patchToSend = {
+				completed: item.completed
+			};
+
+			axios.patch(`https://jsonplaceholder.typicode.com/todos/${id}`, patchToSend).then(response => {
+
+				// this.todoList = response.data;
+				console.log("dati");
+
+			}).catch(error => {
+
+				alert(`Ops... qualcosa è andato storto\n${error.message}`);
+			});
 		},
 		clearTask(event, id, index) {
 			console.log(`event.clearTask id: ${id}, indice: ${index}`);
 
 			// this.todoList.splice(index, 1);
 
-			this.todoList = this.todoList.filter(elemento => elemento.id != id);
+			// this.todoList = this.todoList.filter(elemento => elemento.id != id);
 
-			this.openModal("Attenzione", "Il dato verrà eliminato");
+
+			axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`).then(response => {
+
+				// this.todoList = response.data;
+				console.log("dati");
+
+			}).catch(error => {
+
+				alert(`Ops... qualcosa è andato storto\n${error.message}`);
+			});
 
 		},
 		getValidation() {
@@ -74,5 +94,15 @@ createApp({
 	},
 	mounted() {
 		this.appInit();
+
+		axios.get("https://jsonplaceholder.typicode.com/todos").then(response => {
+
+			this.todoList = response.data;
+			console.log("dati");
+
+		}).catch(error => {
+
+			alert(`Ops... qualcosa è andato storto\n${error.message}`);
+		});
 	}
 }).mount("#app")
